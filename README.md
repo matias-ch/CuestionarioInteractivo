@@ -8,6 +8,8 @@ Esta es una aplicación web desarrollada en .NET Blazor Server que permite a los 
 
 * Interfaz responsive.
 
+* Hecho sin librerías de componentes, solamente html y css.
+
 * Carga de cuestionarios desde un archivo JSON.
     * Esto permite flexibilidad para modificar las preguntas sin necesidad de cambiar el código.
     * Para disminuir el impacto en el hardware solo se lee el archivo cuestionario.json al iniciar la aplicación. 

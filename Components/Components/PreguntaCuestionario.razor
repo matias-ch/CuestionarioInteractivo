@@ -1,0 +1,36 @@
+﻿@using CuestionarioInteractivo.Entities
+<div>
+    <h3><strong>@(ElementoCuestionario.Id).</strong> @ElementoCuestionario.Pregunta</h3>
+    <div style="margin: 8px 0px 8px 16px;">
+        @foreach (var opcion in ElementoCuestionario.Opciones)
+        {
+            <div class="option">
+                <input class="checkbox" type="checkbox" checked="@opcion.ElegidaPorUsuario" @onchange="@(() => opcion.ElegidaPorUsuario = !opcion.ElegidaPorUsuario)" />
+                <label><strong>@(opcion.LetraOpcion).</strong> @opcion.Texto</label>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .option {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 4px 0px 4px 0px;
+    }
+
+    .checkbox {
+        width: 24px;
+        height: 24px;
+    }
+
+    .checkbox:hover {
+        cursor: pointer;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public ElementoCuestionario ElementoCuestionario { get; set; }
+}

@@ -1,0 +1,28 @@
+﻿@page "/solucion/{Id:int}"
+@using CuestionarioInteractivo.Components.Components
+@using CuestionarioInteractivo.Entities
+@using CuestionarioInteractivo.Services
+
+@if (elementoCuestionario != null)
+{
+    <p>@((MarkupString)textoSolucion)</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [Inject]
+    private CuestionarioService CuestionarioService { get; set; }
+
+    ElementoCuestionario? elementoCuestionario;
+    string textoSolucion;
+
+    protected override void OnInitialized()
+    {
+        elementoCuestionario = CuestionarioService.GetElementoCuestionarioPorId(Id);
+        if (elementoCuestionario == null)
+            return;
+        textoSolucion = Utilidades.EscribirTextoSolucion(elementoCuestionario);
+    }
+}

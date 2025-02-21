@@ -1,0 +1,96 @@
+[
+  {
+    "Pregunta": "Blazor en .NET",
+    "Opciones": [
+      {
+        "Texto": "Es un framework para construir interfaces web con C# y Razor",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "Es un motor de base de datos para aplicaciones .NET",
+        "EsCorrecta": false
+      },
+      {
+        "Texto": "Puede ejecutarse tanto en el servidor como en el cliente.",
+        "EsCorrecta": true
+      }
+    ],
+    "MostrarSolucionEn": 0
+  },
+  {
+    "Pregunta": "¿Qué instrucción SQL se usa para agregar una nueva columna a una tabla en SQL Server?",
+    "Opciones": [
+      {
+        "Texto": "ALTER TABLE",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "TRUNCATE",
+        "EsCorrecta": false
+      },
+      {
+        "Texto": "ADD COLUMN",
+        "EsCorrecta": false
+      },
+      {
+        "Texto": "MODIFY COLUMN",
+        "EsCorrecta": false
+      },
+      {
+        "Texto": "DROP",
+        "EsCorrecta": false
+      }
+    ],
+    "MostrarSolucionEn": 1
+  },
+  {
+    "Pregunta": "¿Qué herramienta en .NET se usa para la inyección de dependencias?",
+    "Opciones": [
+      {
+        "Texto": "IServiceCollection",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "IConfiguration",
+        "EsCorrecta": false
+      },
+      {
+        "Texto": "IHttpClientFactory",
+        "EsCorrecta": false
+      }
+    ],
+    "MostrarSolucionEn": 2
+  },
+  {
+    "Pregunta": "¿Cuáles de las siguientes cláusulas se pueden usar con la instrucción SELECT en SQL Server?",
+    "Opciones": [
+      {
+        "Texto": "ORDER BY",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "GROUP BY",
+        "EsCorrecta": true
+      }
+    ],
+    "MostrarSolucionEn": 3
+  },
+  {
+    "Pregunta": "¿Cuáles de los siguientes servicios ofrece Azure DevOps?",
+    "Opciones": [
+      {
+        "Texto": "Azure Repos",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "Azure Pipelines",
+        "EsCorrecta": true
+      },
+      {
+        "Texto": "AWS CodeBuild",
+        "EsCorrecta": false
+      }
+    ],
+    "MostrarSolucionEn": 0
+  }
+]

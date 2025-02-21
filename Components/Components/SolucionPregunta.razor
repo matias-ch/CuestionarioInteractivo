@@ -1,0 +1,118 @@
+﻿@using CuestionarioInteractivo.Entities
+@using CuestionarioInteractivo.Services
+@using static CuestionarioInteractivo.Components.Pages.Home
+
+<div style="margin-left: 16px;">
+    @if (ElementoCuestionario.MostrarSolucionEn == SolucionEn.PopUp)
+    {
+        <p class="nota-solucion">La solución se va a mostrar en un pop-up</p>
+        <button @onclick="MostrarSolucion" disabled="@procesando">@(procesando ? "Cargando..." : "Ver solución")</button>
+    }
+    else if (ElementoCuestionario.MostrarSolucionEn == SolucionEn.NuevaVentana)
+    {
+        <p class="nota-solucion">La solución se va a mostrar en una nueva pestaña</p>
+        <a href="@($"solucion/{ElementoCuestionario.Id}")" target="_blank">Ver solución</a>
+        @if (mostrarSolucion == true)
+        {
+            <p>Se abrió una nueva pestaña con la solución</p>
+        }
+    }
+    else if (ElementoCuestionario.MostrarSolucionEn == SolucionEn.MismaVentana)
+    {
+        @if (mostrarSolucion == true)
+        {
+            <p style="font-style: italic; margin-top: 8px;" class="primary-color">@((MarkupString)textoSolucion)</p>
+        }
+        else
+        {
+            <p class="nota-solucion">La solución se va a mostrar debajo del botón</p>
+            <button @onclick="MostrarSolucion" disabled="@procesando">@(procesando ? "Cargando..." : "Ver solución")</button>
+        }
+    }
+    else //email
+    {
+        <p class="nota-solucion">Ingresá una dirección de email para recibir la solución</p>
+        <div class="email-field">
+            <div class="field">
+                <label class="field-label">Email</label>
+                <input class="field-input" type="text" @bind-value="emailUsuario" disabled="@procesando" />
+            </div>
+            <button @onclick="MostrarSolucion" disabled="@procesando">@(procesando ? "Cargando..." : "Ver solución")</button>
+        </div>
+    }
+</div>
+
+<style>
+    .nota-solucion {
+        margin-bottom: 8px;
+        color: gray;
+    }
+
+    .email-field {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-width: 48px;
+        max-width: 400px;
+    }
+
+    .field-label {
+        font-size: 0.875rem !important;
+        font-weight: 700;
+        color: rgba(126,126,126,1);
+        padding-left: 4px;
+    }
+
+    .field-input {
+        border-radius: 4px;
+        font-size: 1rem;
+        padding: 10px 4px 10px 4px;
+    }
+</style>
+
+@code {
+    [Parameter] public ElementoCuestionario ElementoCuestionario { get; set; }
+
+    [Parameter] public bool MostrarBoton { get; set; } = true;
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    [Inject] private EmailService EmailService { get; set; }
+
+    [Inject] private IJSRuntime JS { get; set; }
+
+    private bool mostrarSolucion = false, procesando = false;
+    private string emailUsuario, textoSolucion;
+
+    private async Task MostrarSolucion()
+    {
+        if (procesando)
+            return;
+        procesando = true;
+
+        textoSolucion = Utilidades.EscribirTextoSolucion(ElementoCuestionario);
+        if (ElementoCuestionario.MostrarSolucionEn == SolucionEn.Email)
+        {
+            string resultado = await EmailService.EnviarCorreoAsync(emailUsuario, "Respuesta cuestionario", textoSolucion);
+            await JS.InvokeVoidAsync("alert", resultado);
+            procesando = false;
+            return;
+        }
+        if (ElementoCuestionario.MostrarSolucionEn == SolucionEn.PopUp)
+        {
+            textoSolucion = Utilidades.EscribirTextoSolucion(ElementoCuestionario, false);
+            await JS.InvokeVoidAsync("alert", textoSolucion);
+        }
+        // mostrarSolucion = false;
+        // await Task.Delay(1);
+        // StateHasChanged();
+        mostrarSolucion = true;
+        procesando = false;
+    }
+}

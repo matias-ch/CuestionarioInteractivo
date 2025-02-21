@@ -1,0 +1,42 @@
+﻿@page "/"
+@using CuestionarioInteractivo.Components.Components
+
+<PageTitle>Cuestionario</PageTitle>
+
+
+@if (!primeraCarga)
+{
+    @if(cuestionario.Count() != 0)
+    {
+        <div style="display:flex; margin-bottom: 16px; justify-content: space-between; flex-wrap: wrap;">
+            <h1>Cuestionario</h1>
+            <div style="display: flex; gap: 8px;">
+                <button class="outlined-button" @onclick="DescargarArchivo">Guardar</button>
+                <label class="upload-button outlined-button">
+                    Cargar
+                    <InputFile style="display: none;" OnChange="TxtAOpcionesElegidas" accept=".txt" />
+                </label>
+            </div>
+        </div>
+        <p style="margin-bottom: 16px;">
+            A continuación hay un cuestionario con @cuestionario.Count() preguntas sobre <strong>.NET, SQL Server y Azure DevOps</strong>.<br />
+            Las preguntas son <strong>multiple choice</strong>.<br />
+            Podés <strong>guardar y cargar tus respuestas</strong> a un archivo de texto.<br />
+        </p>
+        @foreach (var elementoCuestionario in cuestionario)
+        {
+            <PreguntaCuestionario ElementoCuestionario="elementoCuestionario"/>
+            <SolucionPregunta ElementoCuestionario="elementoCuestionario"/>
+            <div class="separator"></div>
+        }
+    }
+    else
+    {
+        <h1>No hay preguntas</h1>
+        <p>La persona que creó este cuestionario <strong>no cargó ninguna pregunta</strong>.</p>
+    }
+}
+else
+{
+    <p>Cargando preguntas...</p>
+}
